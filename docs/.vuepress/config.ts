@@ -21,7 +21,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
       description: '日常学习记录',
     }
   },
-  base: '/', // 默认'/'。如果你想将你的网站部署到如 https://foo.github.io/bar/，那么 base 应该被设置成 "/bar/",（否则页面将失去样式等文件）
+  base: '/xiaoshixy/', // 默认'/'。如果你想将你的网站部署到如 https://foo.github.io/bar/，那么 base 应该被设置成 "/bar/",（否则页面将失去样式等文件）
 
 
 
@@ -48,6 +48,17 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
     // 导航配置
     nav: [
       { text: '首页', link: '/' },
+	  {
+	    text: '关于',
+	    link: '/ui/',
+	    items: [
+	      {
+	        text: '清单',
+	        link: '/pages/4557c4/'
+	      },
+	  
+	    ],
+	  },
       {
         text: '前端',
         link: '/web/', //目录页链接，此处link是vdoing主题新增的配置项，有二级导航时，可以点击一级导航跳到目录页
@@ -56,33 +67,15 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
           {
             text: '基础知识',
             items: [
-              { text: 'JavaScript', link: '/pages/js/' },
+			{ text: 'HTML', link: '/pages/html/' },
+			{ text: 'CSS', link: '/pages/css/' },
+            { text: 'JavaScript', link: '/pages/js/' },
             ],
           },
           {
             text: '进阶知识',
             items: [
               { text: 'DOM', link: '/pages/dom/' },
-            ],
-          },
-
-        ],
-      },
-      {
-        text: '页面',
-        link: '/ui/',
-        items: [
-          {
-            text: '基础知识',
-            items: [
-              { text: 'HTML', link: '/pages/html/' },
-              { text: 'CSS', link: '/pages/css/' },
-            ],
-          },
-          {
-            text: '进阶知识',
-            items: [
-
             ],
           },
 
@@ -106,8 +99,28 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
           },
         ],
       },
+	  {
+        text: '学习笔记',
+		link: '/study/',
+        items: [
+          {
+            text: '软考',
+            items: [
+              { text: '《软考高项》学习笔记', link: '/note/ruankao/' },
+            
+            ],
+          },
+		  {
+		    text: '其他',
+		    items: [
+		      { text: '面试技巧', link: '/pages/aea6571b7a8bae86/' },
+		      { text: '学车技巧', link: '/pages/kemuyi/' },		    
+		    ],
+		  },
+        ],
+      },
       {
-        text: '技术',
+        text: '技术文档',
         link: '/technology/',
         items: [
           {
@@ -136,14 +149,6 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
             ],
           },
 
-        ],
-      },
-      {
-        text: '随笔',
-        link: '/more/',
-        items: [
-          { text: '面试技巧', link: '/pages/aea6571b7a8bae86/' },
-		  { text: '学车技巧', link: '/pages/kemuyi/' },
         ],
       },
       {
