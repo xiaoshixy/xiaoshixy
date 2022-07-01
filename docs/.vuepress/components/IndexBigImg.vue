@@ -204,7 +204,7 @@ export default {
       if (hours >= 6 && hours < 11) {
         div.style.backgroundColor = this.bgTimeColorArray[0];
         addTip(
-          `早上好呀~~，现在是 ${hours}:${minutes}:${seconds}，吃早餐了吗？😊🤭`,
+          `早上好呀~~，现在是 ${hours}:${minutes}:${seconds}，清晨的第一缕阳光送给你🌞`,
           "info",
           50,
           4000
@@ -212,7 +212,7 @@ export default {
       } else if (hours >= 12 && hours <= 16) {
         div.style.backgroundColor = this.bgTimeColorArray[0];
         addTip(
-          `下午好呀~~，现在是 ${hours}:${minutes}:${seconds}，繁忙的下午也要适当休息哦🥤🏀~~`,
+          `下午好呀~~，现在是 ${hours}:${minutes}:${seconds}，犯困来杯咖啡呗☕~~`,
           "info",
           50,
           4000
@@ -220,7 +220,7 @@ export default {
       } else if (hours >= 16 && hours <= 19) {
         div.style.backgroundColor = this.bgTimeColorArray[1];
         addTip(
-          `到黄昏了~~，现在是 ${hours}:${minutes}:${seconds}，该准备吃饭啦🥗🍖~~`,
+          `到黄昏了~~，现在是 ${hours}:${minutes}:${seconds}，工作一天辛苦咯~~❤️`,
           "info",
           50,
           4000
@@ -228,7 +228,7 @@ export default {
       } else if (hours >= 19 && hours < 24) {
         div.style.backgroundColor = this.bgTimeColorArray[2];
         addTip(
-          `晚上好呀~~，现在是 ${hours}:${minutes}:${seconds}，该准备洗漱睡觉啦🥱😪~~`,
+          `晚上好呀~~，现在是 ${hours}:${minutes}:${seconds}，该去睡美容觉啦~~🌛🌠`,
           "info",
           50,
           4000
@@ -236,7 +236,7 @@ export default {
       } else if (hours >= 0 && hours < 6) {
         div.style.backgroundColor = this.bgTimeColorArray[3];
         addTip(
-          `别再熬夜了~~，现在是 ${hours}:${minutes}:${seconds}，早点睡吧，让我们一起欣赏早上的太阳~~😇🛏`,
+          `别再熬夜了~~，现在是 ${hours}:${minutes}:${seconds}，早点休息吧，明天还要继续努力呀~~🤓`,
           "info",
           50,
           4000

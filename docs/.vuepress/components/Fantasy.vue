@@ -253,10 +253,10 @@ export default {
 
       // Canvas奇妙的剪切蒙版实现
       var screenMask = new Image();
-      screenMask.src = "/fantasy/Screenmask.png";
+      screenMask.src = "https://cdn.jsdelivr.net/gh/xiayuan-001/picx-image-hosting@main/vueblog/Screenmask.6euvca1slk00.webp";
 
       var screen = new Image();
-      screen.src = "/fantasy/screen.png";
+      screen.src = "https://cdn.jsdelivr.net/gh/xiayuan-001/picx-image-hosting@main/vueblog/screen.2amijz5t4p0k.webp";
 
       var iv = setInterval(() => {
         if (screen.complete && screenMask.complete) {
@@ -283,25 +283,25 @@ export default {
 
       // 加载图片
       var bg = new Image();
-      bg.src = "/fantasy/bg.png";
+      bg.src = "https://cdn.jsdelivr.net/gh/xiayuan-001/picx-image-hosting@main/vueblog/bg.5b71l3pbuik0.webp";
 
       var mask = new Image();
-      mask.src = "/fantasy/mask.png";
+      mask.src = "https://cdn.jsdelivr.net/gh/xiayuan-001/picx-image-hosting@main/vueblog/mask.5s07c5x9o7g0.webp";
 
       var light = new Image();
-      light.src = "/fantasy/light.png";
+      light.src = "https://cdn.jsdelivr.net/gh/xiayuan-001/picx-image-hosting@main/vueblog/light.6gq7x2o515s0.webp";
 
       var caidai = new Image();
-      caidai.src = "/fantasy/caidai.png";
+      caidai.src = "https://cdn.jsdelivr.net/gh/xiayuan-001/picx-image-hosting@main/vueblog/caidai.6jx4l6nqk7g0.webp";
 
       var two = new Image();
-      two.src = "/fantasy/22.png";
+      two.src = "https://cdn.jsdelivr.net/gh/xiayuan-001/picx-image-hosting@main/vueblog/22.4r3fjzrzf2c0.webp";
 
       var screenLight = new Image();
-      screenLight.src = "/fantasy/screenLight.png";
+      screenLight.src = "https://cdn.jsdelivr.net/gh/xiayuan-001/picx-image-hosting@main/vueblog/screenLight.k0vd6pvlw1c.webp";
 
       var phoneLight = new Image();
-      phoneLight.src = "/fantasy/phoneLight.png";
+      phoneLight.src = "https://cdn.jsdelivr.net/gh/xiayuan-001/picx-image-hosting@main/vueblog/phoneLight.72g7yizleco0.webp";
 
       var phoneText = JSON.parse(
         '[{"time":0,"text":"凌晨啦!"},{"time":6,"text":"早上好!"},{"time":8,"text":"上午好!"},{"time":11,"text":"你吃了吗"},{"time":13,"text":"下午好鸭!"},{"time":16,"text":"傍晚咯!"},{"time":19,"text":"晚安!"}]'
