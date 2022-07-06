@@ -111,6 +111,13 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
             ],
           },
 		  {
+		    text: 'MySql',
+		    items: [
+		      { text: '《MySql》学习笔记', link: '/note/mysql/' },
+		    
+		    ],
+		  },
+		  {
 		    text: '其他',
 		    items: [
 		      { text: '面试技巧', link: '/pages/aea6571b7a8bae86/' },
