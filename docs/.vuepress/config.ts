@@ -118,10 +118,11 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
 		    ],
 		  },
 		  {
-		    text: '其他',
+		    text: '学车技巧',
 		    items: [
-		      { text: '面试技巧', link: '/pages/aea6571b7a8bae86/' },
-		      { text: '学车技巧', link: '/pages/kemuyi/' },		    
+		      { text: '科目一', link: '/pages/kemuyi/' },
+			  { text: '科目二', link: '/pages/bc1c30/' },
+		      { text: '科目四', link: '/pages/b98baf/' },		    
 		    ],
 		  },
         ],
