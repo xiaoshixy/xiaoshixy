@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>MySql之多表查询 | 时间旅行者の博客</title>
+    <meta name="generator" content="VuePress 1.9.5">
+    <link rel="icon" href="/xiaoshixy/img/favicon.ico">
+    <link rel="stylesheet" href="/xiaoshixy//at.alicdn.com/t/font_3114978_qe0b39no76.css">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_3077305_pt8umhrn4k9.css">
+    <meta name="description" content="日常学习记录">
+    <meta name="keywords" content="前端博客,个人技术博客,前端,前端开发,前端框架,web前端,前端面试题,技术文档,学习,面试,JavaScript,js,ES6,TypeScript,vue,python,css3,html5,Node,git,github,markdown">
+    <meta name="baidu-site-verification" content="7F55weZDDc">
+    <meta name="theme-color" content="#11a8cd">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <link rel="preload" href="/xiaoshixy/assets/css/0.styles.f2818ccd.css" as="style"><link rel="preload" href="/xiaoshixy/assets/js/app.929aa955.js" as="script"><link rel="preload" href="/xiaoshixy/assets/js/2.bc0d13a8.js" as="script"><link rel="preload" href="/xiaoshixy/assets/js/48.a0d98520.js" as="script"><link rel="preload" href="/xiaoshixy/assets/js/5.20225ec1.js" as="script"><link rel="prefetch" href="/xiaoshixy/assets/js/10.e6631cdb.js"><link rel="prefetch" href="/xiaoshixy/assets/js/11.e1480026.js"><link rel="prefetch" href="/xiaoshixy/assets/js/12.6a7860e6.js"><link rel="prefetch" href="/xiaoshixy/assets/js/13.51c98073.js"><link rel="prefetch" href="/xiaoshixy/assets/js/14.e9f6780e.js"><link rel="prefetch" href="/xiaoshixy/assets/js/15.0d345c45.js"><link rel="prefetch" href="/xiaoshixy/assets/js/16.5a75b3d3.js"><link rel="prefetch" href="/xiaoshixy/assets/js/17.89f14af8.js"><link rel="prefetch" href="/xiaoshixy/assets/js/18.13e1eb1e.js"><link rel="prefetch" href="/xiaoshixy/assets/js/19.b49b8794.js"><link rel="prefetch" href="/xiaoshixy/assets/js/20.290f6156.js"><link rel="prefetch" href="/xiaoshixy/assets/js/21.437c263b.js"><link rel="prefetch" href="/xiaoshixy/assets/js/22.1d6c98e0.js"><link rel="prefetch" href="/xiaoshixy/assets/js/23.d65c9c34.js"><link rel="prefetch" href="/xiaoshixy/assets/js/24.23b557a7.js"><link rel="prefetch" href="/xiaoshixy/assets/js/25.55982e70.js"><link rel="prefetch" href="/xiaoshixy/assets/js/26.8ca73f62.js"><link rel="prefetch" href="/xiaoshixy/assets/js/27.5cd4d6c0.js"><link rel="prefetch" href="/xiaoshixy/assets/js/28.902a5e26.js"><link rel="prefetch" href="/xiaoshixy/assets/js/29.1d623860.js"><link rel="prefetch" href="/xiaoshixy/assets/js/3.9b5ed874.js"><link rel="prefetch" href="/xiaoshixy/assets/js/30.e3788eee.js"><link rel="prefetch" href="/xiaoshixy/assets/js/31.e091ae4c.js"><link rel="prefetch" href="/xiaoshixy/assets/js/32.4a0516b6.js"><link rel="prefetch" href="/xiaoshixy/assets/js/33.c7143b29.js"><link rel="prefetch" href="/xiaoshixy/assets/js/34.8521f3b3.js"><link rel="prefetch" href="/xiaoshixy/assets/js/35.dcec0c91.js"><link rel="prefetch" href="/xiaoshixy/assets/js/36.42cd465e.js"><link rel="prefetch" href="/xiaoshixy/assets/js/37.095ce914.js"><link rel="prefetch" href="/xiaoshixy/assets/js/38.59e9282b.js"><link rel="prefetch" href="/xiaoshixy/assets/js/39.f1f7d176.js"><link rel="prefetch" href="/xiaoshixy/assets/js/4.e3d159c1.js"><link rel="prefetch" href="/xiaoshixy/assets/js/40.a77f088f.js"><link rel="prefetch" href="/xiaoshixy/assets/js/41.3b2d6971.js"><link rel="prefetch" href="/xiaoshixy/assets/js/42.adaf88c2.js"><link rel="prefetch" href="/xiaoshixy/assets/js/43.204a4570.js"><link rel="prefetch" href="/xiaoshixy/assets/js/44.82e522c9.js"><link rel="prefetch" href="/xiaoshixy/assets/js/45.45c55b86.js"><link rel="prefetch" href="/xiaoshixy/assets/js/46.e2be41e7.js"><link rel="prefetch" href="/xiaoshixy/assets/js/47.3c3f3878.js"><link rel="prefetch" href="/xiaoshixy/assets/js/49.d8ba90a8.js"><link rel="prefetch" href="/xiaoshixy/assets/js/50.ac361f0f.js"><link rel="prefetch" href="/xiaoshixy/assets/js/51.e94a40b9.js"><link rel="prefetch" href="/xiaoshixy/assets/js/52.ed5e0542.js"><link rel="prefetch" href="/xiaoshixy/assets/js/53.940539af.js"><link rel="prefetch" href="/xiaoshixy/assets/js/54.991cf8fd.js"><link rel="prefetch" href="/xiaoshixy/assets/js/55.68ba0ed7.js"><link rel="prefetch" href="/xiaoshixy/assets/js/56.67d6918c.js"><link rel="prefetch" href="/xiaoshixy/assets/js/57.b3fb3b92.js"><link rel="prefetch" href="/xiaoshixy/assets/js/58.f3f142b5.js"><link rel="prefetch" href="/xiaoshixy/assets/js/59.35a3ae15.js"><link rel="prefetch" href="/xiaoshixy/assets/js/6.c88685d2.js"><link rel="prefetch" href="/xiaoshixy/assets/js/60.a994ac96.js"><link rel="prefetch" href="/xiaoshixy/assets/js/61.522d248c.js"><link rel="prefetch" href="/xiaoshixy/assets/js/62.8ef14cf8.js"><link rel="prefetch" href="/xiaoshixy/assets/js/63.5dab89bd.js"><link rel="prefetch" href="/xiaoshixy/assets/js/64.5a025126.js"><link rel="prefetch" href="/xiaoshixy/assets/js/65.4c6b96ba.js"><link rel="prefetch" href="/xiaoshixy/assets/js/66.f03a1e60.js"><link rel="prefetch" href="/xiaoshixy/assets/js/67.c9a9d2a8.js"><link rel="prefetch" href="/xiaoshixy/assets/js/68.8e455a82.js"><link rel="prefetch" href="/xiaoshixy/assets/js/69.91be1bd0.js"><link rel="prefetch" href="/xiaoshixy/assets/js/7.80bd6e1e.js"><link rel="prefetch" href="/xiaoshixy/assets/js/8.1d9433a1.js"><link rel="prefetch" href="/xiaoshixy/assets/js/9.7891c4a0.js">
+    <link rel="stylesheet" href="/xiaoshixy/assets/css/0.styles.f2818ccd.css">
+  </head>
+  <body class="theme-mode-light">
+    <div id="app" data-server-rendered="true"><div class="theme-container sidebar-open have-rightmenu have-body-img"><header class="navbar blur"><div title="目录" class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/xiaoshixy/" class="home-link router-link-active"><img src="/xiaoshixy/img/logo.gif" alt="时间旅行者の博客" class="logo"> <span class="site-name can-hide">时间旅行者の博客</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/xiaoshixy/" class="nav-link">首页</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="关于" class="dropdown-title"><a href="/xiaoshixy/ui/" class="link-title">关于</a> <span class="title" style="display:none;">关于</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/xiaoshixy/pages/4557c4/" class="nav-link">清单</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><a href="/xiaoshixy/web/" class="link-title">前端</a> <span class="title" style="display:none;">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>基础知识</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/pages/html/" class="nav-link">HTML</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/css/" class="nav-link">CSS</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/js/" class="nav-link">JavaScript</a></li></ul></li><li class="dropdown-item"><h4>进阶知识</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/pages/dom/" class="nav-link">DOM</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="博客搭建" class="dropdown-title"><a href="/xiaoshixy/blog/" class="link-title">博客搭建</a> <span class="title" style="display:none;">博客搭建</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>安装指南</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/pages/4d4f5d/" class="nav-link">vuepress安装指南</a></li></ul></li><li class="dropdown-item"><h4>魔改记录</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/pages/1e8897/" class="nav-link">首页大图模块</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="学习笔记" class="dropdown-title"><a href="/xiaoshixy/study/" class="link-title">学习笔记</a> <span class="title" style="display:none;">学习笔记</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>软考</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/note/ruankao/" class="nav-link">《软考高项》学习笔记</a></li></ul></li><li class="dropdown-item"><h4>MySql</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/note/mysql/" class="nav-link">《MySql》学习笔记</a></li></ul></li><li class="dropdown-item"><h4>Python</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/note/python/" class="nav-link">《Python》学习笔记</a></li></ul></li><li class="dropdown-item"><h4>学车技巧</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/pages/kemuyi/" class="nav-link">科目一</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/bc1c30/" class="nav-link">科目二</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/b98baf/" class="nav-link">科目四</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="技术文档" class="dropdown-title"><a href="/xiaoshixy/technology/" class="link-title">技术文档</a> <span class="title" style="display:none;">技术文档</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>技术文档</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/pages/9a7ee40fc232253e/" class="nav-link">Git使用手册</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/ad247c4332211551/" class="nav-link">Markdown使用教程</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/61f2f95fd7da14fd/" class="nav-link">npm常用命令</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/dec4f3f00e71a312/" class="nav-link">npm packageJson属性详解</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/4e8444e2d534d14f/" class="nav-link">yaml语言教程</a></li></ul></li><li class="dropdown-item"><h4>GitHub技巧</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/pages/6b9d359ec5aa5019/" class="nav-link">GitHub高级搜索技巧</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/6b9d359ec5aa5019/" class="nav-link">GitHub Actions 实现自动部署静态博客</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/f44d2f9ad04ab8d3/" class="nav-link">GitHub Actions 每天定时百度链接推送</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/95331c6a9613faf8/" class="nav-link">GitHub加速下载项目的方法</a></li></ul></li><li class="dropdown-item"><h4>Nodejs</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/pages/117708e0af7f0bd9/" class="nav-link">nodejs递归读取所有文件</a></li></ul></li></ul></div></div><div class="nav-item"><a href="/xiaoshixy/pages/beb6c0bd8a66cea6/" class="nav-link">收藏</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="索引" class="dropdown-title"><a href="/xiaoshixy/archives/" class="link-title">索引</a> <span class="title" style="display:none;">索引</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/xiaoshixy/categories/" class="nav-link">分类</a></li><li class="dropdown-item"><!----> <a href="/xiaoshixy/tags/" class="nav-link">标签</a></li><li class="dropdown-item"><!----> <a href="/xiaoshixy/archives/" class="nav-link">归档</a></li></ul></div></div> <a href="https://github.com/xugaoyi/vuepress-theme-vdoing" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar-hover-trigger"></div> <aside class="sidebar" style="display:none;"><div class="blogger"><img src="https://cdn.jsdelivr.net/gh/xiayuan-001/picx-image-hosting@main/vueblog/avastar.4ga3smalsx60.webp"> <div class="blogger-info"><h3>时间旅行者</h3> <span>前端菜鸟</span></div></div> <nav class="nav-links"><div class="nav-item"><a href="/xiaoshixy/" class="nav-link">首页</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="关于" class="dropdown-title"><a href="/xiaoshixy/ui/" class="link-title">关于</a> <span class="title" style="display:none;">关于</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/xiaoshixy/pages/4557c4/" class="nav-link">清单</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><a href="/xiaoshixy/web/" class="link-title">前端</a> <span class="title" style="display:none;">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>基础知识</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/pages/html/" class="nav-link">HTML</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/css/" class="nav-link">CSS</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/js/" class="nav-link">JavaScript</a></li></ul></li><li class="dropdown-item"><h4>进阶知识</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/pages/dom/" class="nav-link">DOM</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="博客搭建" class="dropdown-title"><a href="/xiaoshixy/blog/" class="link-title">博客搭建</a> <span class="title" style="display:none;">博客搭建</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>安装指南</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/pages/4d4f5d/" class="nav-link">vuepress安装指南</a></li></ul></li><li class="dropdown-item"><h4>魔改记录</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/pages/1e8897/" class="nav-link">首页大图模块</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="学习笔记" class="dropdown-title"><a href="/xiaoshixy/study/" class="link-title">学习笔记</a> <span class="title" style="display:none;">学习笔记</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>软考</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/note/ruankao/" class="nav-link">《软考高项》学习笔记</a></li></ul></li><li class="dropdown-item"><h4>MySql</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/note/mysql/" class="nav-link">《MySql》学习笔记</a></li></ul></li><li class="dropdown-item"><h4>Python</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/note/python/" class="nav-link">《Python》学习笔记</a></li></ul></li><li class="dropdown-item"><h4>学车技巧</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/pages/kemuyi/" class="nav-link">科目一</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/bc1c30/" class="nav-link">科目二</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/b98baf/" class="nav-link">科目四</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="技术文档" class="dropdown-title"><a href="/xiaoshixy/technology/" class="link-title">技术文档</a> <span class="title" style="display:none;">技术文档</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>技术文档</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/pages/9a7ee40fc232253e/" class="nav-link">Git使用手册</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/ad247c4332211551/" class="nav-link">Markdown使用教程</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/61f2f95fd7da14fd/" class="nav-link">npm常用命令</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/dec4f3f00e71a312/" class="nav-link">npm packageJson属性详解</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/4e8444e2d534d14f/" class="nav-link">yaml语言教程</a></li></ul></li><li class="dropdown-item"><h4>GitHub技巧</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/pages/6b9d359ec5aa5019/" class="nav-link">GitHub高级搜索技巧</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/6b9d359ec5aa5019/" class="nav-link">GitHub Actions 实现自动部署静态博客</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/f44d2f9ad04ab8d3/" class="nav-link">GitHub Actions 每天定时百度链接推送</a></li><li class="dropdown-subitem"><a href="/xiaoshixy/pages/95331c6a9613faf8/" class="nav-link">GitHub加速下载项目的方法</a></li></ul></li><li class="dropdown-item"><h4>Nodejs</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/xiaoshixy/pages/117708e0af7f0bd9/" class="nav-link">nodejs递归读取所有文件</a></li></ul></li></ul></div></div><div class="nav-item"><a href="/xiaoshixy/pages/beb6c0bd8a66cea6/" class="nav-link">收藏</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="索引" class="dropdown-title"><a href="/xiaoshixy/archives/" class="link-title">索引</a> <span class="title" style="display:none;">索引</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/xiaoshixy/categories/" class="nav-link">分类</a></li><li class="dropdown-item"><!----> <a href="/xiaoshixy/tags/" class="nav-link">标签</a></li><li class="dropdown-item"><!----> <a href="/xiaoshixy/archives/" class="nav-link">归档</a></li></ul></div></div> <a href="https://github.com/xugaoyi/vuepress-theme-vdoing" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>基础篇</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/xiaoshixy/pages/ae60b8/" class="sidebar-link">MySql之单表查询</a></li><li><a href="/xiaoshixy/pages/sql2/" aria-current="page" class="active sidebar-link">MySql之多表查询</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header level2"><a href="/xiaoshixy/pages/sql2/#distinct去重" class="sidebar-link">distinct去重</a></li><li class="sidebar-sub-header level2"><a href="/xiaoshixy/pages/sql2/#sql99语法" class="sidebar-link">SQL99语法</a></li><li class="sidebar-sub-header level2"><a href="/xiaoshixy/pages/sql2/#连接查询" class="sidebar-link">连接查询</a></li><li class="sidebar-sub-header level2"><a href="/xiaoshixy/pages/sql2/#内连接之等值连接" class="sidebar-link">内连接之等值连接</a></li><li class="sidebar-sub-header level2"><a href="/xiaoshixy/pages/sql2/#内连接之非等值连接" class="sidebar-link">内连接之非等值连接</a></li><li class="sidebar-sub-header level2"><a href="/xiaoshixy/pages/sql2/#内连接之自连接" class="sidebar-link">内连接之自连接</a></li><li class="sidebar-sub-header level2"><a href="/xiaoshixy/pages/sql2/#外连接" class="sidebar-link">外连接</a></li><li class="sidebar-sub-header level2"><a href="/xiaoshixy/pages/sql2/#右外连接-右连接" class="sidebar-link">右外连接（右连接）</a></li><li class="sidebar-sub-header level2"><a href="/xiaoshixy/pages/sql2/#左外连接-左连接" class="sidebar-link">左外连接（左连接）</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header level3"><a href="/xiaoshixy/pages/sql2/#案例" class="sidebar-link">案例</a></li></ul></li><li class="sidebar-sub-header level2"><a href="/xiaoshixy/pages/sql2/#三张表连接" class="sidebar-link">三张表连接</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header level3"><a href="/xiaoshixy/pages/sql2/#案例1" class="sidebar-link">案例1</a></li><li class="sidebar-sub-header level3"><a href="/xiaoshixy/pages/sql2/#案例2" class="sidebar-link">案例2</a></li></ul></li><li class="sidebar-sub-header level2"><a href="/xiaoshixy/pages/sql2/#子查询" class="sidebar-link">子查询</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header level3"><a href="/xiaoshixy/pages/sql2/#语法" class="sidebar-link">语法</a></li></ul></li><li class="sidebar-sub-header level2"><a href="/xiaoshixy/pages/sql2/#where子句中的子查询" class="sidebar-link">where子句中的子查询</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header level3"><a href="/xiaoshixy/pages/sql2/#案例-2" class="sidebar-link">案例</a></li><li class="sidebar-sub-header level4"><a href="/xiaoshixy/pages/sql2/#实现思路" class="sidebar-link">实现思路</a></li></ul></li><li class="sidebar-sub-header level2"><a href="/xiaoshixy/pages/sql2/#from的子查询" class="sidebar-link">from的子查询</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header level3"><a href="/xiaoshixy/pages/sql2/#案例-3" class="sidebar-link">案例</a></li><li class="sidebar-sub-header level4"><a href="/xiaoshixy/pages/sql2/#实现思路-2" class="sidebar-link">实现思路</a></li></ul></li><li class="sidebar-sub-header level2"><a href="/xiaoshixy/pages/sql2/#select后面出现的子查询-了解" class="sidebar-link">select后面出现的子查询(了解)</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header level3"><a href="/xiaoshixy/pages/sql2/#案例-4" class="sidebar-link">案例</a></li></ul></li><li class="sidebar-sub-header level2"><a href="/xiaoshixy/pages/sql2/#union合并查询结果集" class="sidebar-link">union合并查询结果集</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header level3"><a href="/xiaoshixy/pages/sql2/#案例-5" class="sidebar-link">案例</a></li></ul></li><li class="sidebar-sub-header level2"><a href="/xiaoshixy/pages/sql2/#limit-非常重-要" class="sidebar-link">limit（非常重 要）</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header level3"><a href="/xiaoshixy/pages/sql2/#用法" class="sidebar-link">用法</a></li><li class="sidebar-sub-header level3"><a href="/xiaoshixy/pages/sql2/#案例-6" class="sidebar-link">案例</a></li></ul></li><li class="sidebar-sub-header level2"><a href="/xiaoshixy/pages/sql2/#分页" class="sidebar-link">分页</a></li><li class="sidebar-sub-header level2"><a href="/xiaoshixy/pages/sql2/#关于dql语句的大总结" class="sidebar-link">关于DQL语句的大总结</a></li></ul></li><li><a href="/xiaoshixy/pages/a35793/" class="sidebar-link">MySql之增删改查</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>进阶篇</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <div><main class="page"><div class="theme-vdoing-wrapper "><div class="articleInfo-wrap" data-v-06225672><div class="articleInfo" data-v-06225672><ul class="breadcrumbs" data-v-06225672><li data-v-06225672><a href="/xiaoshixy/" title="首页" class="iconfont icon-home router-link-active" data-v-06225672></a></li> <li data-v-06225672><a href="/xiaoshixy/note/mysql/#《MySql》学习笔记" data-v-06225672>《MySql》学习笔记</a></li><li data-v-06225672><a href="/xiaoshixy/note/mysql/#基础篇" data-v-06225672>基础篇</a></li></ul> <div class="info" data-v-06225672><div title="作者" class="author iconfont icon-touxiang" data-v-06225672><a href="https://github.com/xiaoshixy" target="_blank" title="作者" class="beLink" data-v-06225672>xiaoshixy</a></div> <div title="创建时间" class="date iconfont icon-riqi" data-v-06225672><a href="javascript:;" data-v-06225672>2022-07-08</a></div> <!----></div></div></div> <!----> <div class="content-wrapper"><div class="right-menu-wrapper"><div class="right-menu-margin"><div class="right-menu-title">目录</div> <div class="right-menu-content"></div></div></div> <h1><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAABKFJREFUSA3tVl1oFVcQnrMbrak3QUgkya1akpJYcrUtIqW1JvFBE9LiQ5v6JmJpolbMg32rVrhgoYK0QiMY6i9Y6EMaW5D+xFJaTYItIuK2Kr3+BJNwkxBj05sQY3b3nM6cs2dv9t7NT/vQJw/sndk5M/PNzJkzewGerP+pAmy+ON8lLzUJgA8ZYxYIYZmGYRnctDaWvJJAmTtfP1pvXsBCCPP8QFcCaRkZYACgDZFO4stNIcBCajEOlmmC9XpJ9bAGCaPaPmzPl32dvLSVu3BWCTQs0XQQ6g0DYgwLIoAZbBCdW/i+781o1VVlm/410mw4h06Y7bIPHNyWDyL4FHkX03Q8SrzNhZTZriieckWt7cL6MM85YcLpsi/7O9/iXFT6MswI0DmmpkSaJ0qLxFIm3+i1THHB3zmBH3PYx9CcykcLOeQVVa7QtdxTgQgEleX2AjHYfwA+2ddV77ruGoJUbhGDI09YSNXyMpUt5ylOzxgbUmtOp7NmbNt8v3arjTBfYELmLUV+M+nSawNNAUqpT3ClJWg5I3BLT+cGW/DXNGCa6tx1aakCGEigArTn4TDIPdrXXYKCZNrHLMCOEPvHBlLQ99s9eHB7EB6NTki73CVPQ2F5MSx/uRQixfmq7rK0wYD8w8E905bnPDfwoWs/rfv93NWN/ZfvwsLIU7A09gxECyISeGJkHAau98L97tuw7NXnoPyNF8FcYGLGKsOs0mN3OEyec9esGW/ZEl945dTP34wlR2FZVQWU1q0Cw8Tr7p+hgLLNL0FPxx/Q35mA8aEUrH6nCgwEl0tn7wUiZYJnNRh6DK4UH/k0lfyrsBKdPVv/AriGIQcEDQZ65LBAGe2Rzui9Ybjz7XUppz1/uKBbyVPGkN3ZAeC6hr0x7Nr38N5+EqkoOm17xpoqR9ohQF55ERSvr4Dkr3chNfC3DMzGJlNBElW8w9nsGQvhNGIzDkXzCg8cLK951xHsFBlTJspJNi3ZFIMF2AeDV3q8DNOB+YHi6QTrChDIWDBRi5U5f+ZMfJLu3ccrqxtdxk4SKH336LFxSmkqefwU5T8fhdSdQf9IVKD6aNiwI/hnmcAZ91isYMJIaCUCx9W098+LgruikeTqzqqxKPUwqJyCPJiyemVVZBOijDGjD38Os0jOiSPL1z3SPjXNANbiNPXAdzTfukjjuknNBbyz3nwgTd3AVFqUJ5hpHlq9MveLnWwttUfoygBmvVjuikxND3znrhsELnZk7k+OjIGxeNEkomyLVta0xxn+HZhjBc4YZ/AFjHjz9u3xRZl2BN4aq9nFwWh16IrQ1aHHEd3j1+4/dB9OtH4e29A2H1DyHQRmOSfQZ1Fy7MHBTGB6J/Djq6p3OxyO2cB+4Car7v/o3GXgfAkj23+x9ID1Teoamo/SXcbvSf2PX7Vc8DdCmE1vN9di+32P9/5YR3vLnhCVGUWBjEkr3yh4H8v9CzmsbdhzOKzsJKM90iFdaTMjRPhGVsakRvOaRidljo6H6G7j+ctrJpsP+4COhDIl0La2+FS4+5mlocBaXY5QnGZysIBYoeSsl5qQzrSj/cgNrfuEzlWBfwA+EjrZyWUvpAAAAABJRU5ErkJggg==">MySql之多表查询<!----></h1>  <div class="theme-vdoing-content content__default"><h2 id="distinct去重"><a href="#distinct去重" class="header-anchor">#</a> distinct去重</h2> <div class="custom-block tip"><p class="custom-block-title">注意</p> <ol><li>原表数据不会被修改，只是查询结果去重</li> <li><code>distinct</code>只能出现在所有字段的最前方</li> <li><code>distinct</code>出现在job,deptno两个字段之前，表示两个字段联合起来去重</li></ol></div> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select distinct job,deptno from emp;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h2 id="sql99语法"><a href="#sql99语法" class="header-anchor">#</a> SQL99语法</h2> <div class="custom-block warning"><p class="custom-block-title">注意</p> <p>表连接的条件是独立的，连接之后，如果还需要进一步筛选，再往后继续添加where</p></div> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select 
+	...
+from
+		a
+join
+		b
+on
+		a和b的连接条件
+where
+		筛选条件
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div><h2 id="连接查询"><a href="#连接查询" class="header-anchor">#</a> 连接查询</h2> <div class="custom-block tip"><p class="custom-block-title">概念</p> <p>单表查询:从一张表中单独查询;</p> <p>连接查询:多张表联合起来查询数据</p></div> <h2 id="内连接之等值连接"><a href="#内连接之等值连接" class="header-anchor">#</a> 内连接之等值连接</h2> <blockquote><p>案例：查询每个员工所在部门名称，显示员工名和部门名？<br>
+emp e和dept d表进行连接。条件是：e.deptno = d.deptno</p></blockquote> <ul><li><strong>条件是等量关系</strong>，所以被称为等值连接</li></ul> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select 
+		e.ename,d.dname
+from
+		emp e
+join
+		dept d
+on
+		e.deptno = d.deptno;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h2 id="内连接之非等值连接"><a href="#内连接之非等值连接" class="header-anchor">#</a> 内连接之非等值连接</h2> <blockquote><p>案例：找出每个员工的薪资等级，要求显示员工名、薪资、薪资等级？</p></blockquote> <ul><li><strong>条件不是一个等量关系</strong>，称为非等值连接。</li></ul> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select 
+    e.ename,
+    e.sal,
+    s.grade
+from 
+    emp e
+join
+    salgrade s
+on
+    e.sal between LOSAL and HISAL;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div><h2 id="内连接之自连接"><a href="#内连接之自连接" class="header-anchor">#</a> 内连接之自连接</h2> <blockquote><p>案例：查询员工的上级领导，要求显示员工名和对应的领导名？</p></blockquote> <ul><li><strong>一张表看成两张表</strong></li></ul> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select
+    e.ename,
+    s.ename
+from
+    emp e
+join
+    emp s
+on
+    e.MGR = s.EMPNO;#员工的领导编号 = 领导的员工编号
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div><h2 id="外连接"><a href="#外连接" class="header-anchor">#</a> 外连接</h2> <div class="custom-block tip"><p class="custom-block-title">内连接</p> <p>A和B连接，AB两张表没有主次关系。平等的</p> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select 
+    e.ename,d.dname
+from
+    emp e
+join
+    dept d
+on
+    e.deptno = d.deptno; //内连接的特点：完成能够匹配上这个条件的数据查询出来。
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></div> <h2 id="右外连接-右连接"><a href="#右外连接-右连接" class="header-anchor">#</a> 右外连接（右连接）</h2> <blockquote><ol><li><code>right</code>代表什么：表示将<code>join</code>关键字右边的这张表看成<mark>主表</mark></li> <li>主要是为了将这张表的数据全部查询出来，捎带着关联查询左边的表。</li> <li>在外连接当中，两张表连接，产生了主次关系。</li></ol></blockquote> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select
+    e.ename,d.dname
+from
+    emp e
+right join
+    dept d
+on
+    e.deptno = d.deptno;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h2 id="左外连接-左连接"><a href="#左外连接-左连接" class="header-anchor">#</a> 左外连接（左连接）</h2> <blockquote><ol><li>带有right的是右外连接，又叫做右连接。</li> <li>带有left的是左外连接，又叫做左连接。</li> <li>任何一个右连接都有左连接的写法。</li> <li>任何一个左连接都有右连接的写法。</li></ol></blockquote> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select 
+    e.ename,d.dname
+from
+    dept d 
+left join 
+    emp e
+on
+    e.deptno = d.deptno;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><div class="custom-block warning"><p class="custom-block-title">注意</p> <p>思考：外连接的查询结果条数一定是 &gt;= 内连接的查询结果条数？
+正确。</p></div> <h3 id="案例"><a href="#案例" class="header-anchor">#</a> 案例</h3> <ul><li>查询每个员工的上级领导，要求显示所有员工的名字和领导名</li></ul> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select
+    a.ename as '员工名',
+    b.ename as '领导名'
+from
+    emp a
+left join
+    emp b
+on
+    a.mgr = b.empno;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div><h2 id="三张表连接"><a href="#三张表连接" class="header-anchor">#</a> 三张表连接</h2> <blockquote><p>一条SQL中内连接和外连接可以混合。都可以出现</p></blockquote> <ul><li>语法</li></ul> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select 
+			...
+from
+			a
+join
+			b
+on
+			a和b的连接条件
+join
+			c
+on
+			a和c的连接条件
+right join
+			d
+on
+			a和d的连接条件
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br></div></div><h3 id="案例1"><a href="#案例1" class="header-anchor">#</a> 案例1</h3> <blockquote><p>案例：找出每个员工的部门名称以及工资等级，
+要求显示员工名、部门名、薪资、薪资等级？</p></blockquote> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select
+    e.ename as '员工名',
+    d.dname as ‘部门名’,
+    e.sal as '薪资',
+    s.grade as '薪资等级'
+from
+    emp e
+join
+    dept d
+on  
+    e.DEPTNO = d.DEPTNO
+join
+    salgrade s
+on
+    e.sal between s.LOSAL and s.HISAL;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br></div></div><h3 id="案例2"><a href="#案例2" class="header-anchor">#</a> 案例2</h3> <blockquote><p>案例：找出每个员工的部门名称以及工资等级，还有上级领导，
+要求显示员工名、领导名、部门名、薪资、薪资等级？</p></blockquote> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select 
+    e.ename,
+    e.sal,
+    d.dname,
+    s.grade,
+    l.ename
+from
+    emp e
+join
+    dept d
+on
+    e.deptno = d.deptno
+join
+    salgrade s
+on
+    e.sal between s.LOSAL and s.HISAL
+left join
+    emp l
+on
+    e.MGR = l.EMPNO
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br></div></div><h2 id="子查询"><a href="#子查询" class="header-anchor">#</a> 子查询</h2> <div class="custom-block tip"><p class="custom-block-title">定义</p> <p><code>select</code>语句中嵌套<code>select</code>语句，被嵌套的<code>select</code>语句称为子查询。</p></div> <h3 id="语法"><a href="#语法" class="header-anchor">#</a> 语法</h3> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select
+		..(select).
+from
+		..(select).
+where
+		..(select).
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><h2 id="where子句中的子查询"><a href="#where子句中的子查询" class="header-anchor">#</a> where子句中的子查询</h2> <h3 id="案例-2"><a href="#案例-2" class="header-anchor">#</a> 案例</h3> <blockquote><p>找出比最低工资高的员工姓名和工资</p> <p>where子句中不能直接使用分组函数。</p></blockquote> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select
+    e.ename as '员工姓名',
+    e.sal as '工资'
+from
+    emp e
+where
+    e.sal &gt;
+    (select min(sal) from emp);
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h4 id="实现思路"><a href="#实现思路" class="header-anchor">#</a> 实现思路</h4> <details class="custom-block details"><summary>点击查看</summary> <ol><li>第一步：查询最低工资是多少</li></ol> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select min(sal) from emp;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><ol start="2"><li>第二步：找出&gt;800的</li></ol> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select ename,sal from emp where sal &gt; 800;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><ol start="3"><li>合并</li></ol> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select
+    e.ename as '员工姓名',
+    e.sal as '工资'
+from
+    emp e
+where
+    e.sal &gt;
+    (select min(sal) from emp);
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></details> <h2 id="from的子查询"><a href="#from的子查询" class="header-anchor">#</a> from的子查询</h2> <div class="custom-block tip"><p class="custom-block-title">技巧</p> <p><code>from</code>后面的子查询，可以将子查询的查询结果当做一张临时表</p></div> <h3 id="案例-3"><a href="#案例-3" class="header-anchor">#</a> 案例</h3> <blockquote><p>找出每个岗位的平均工资的薪资等级</p></blockquote> <h4 id="实现思路-2"><a href="#实现思路-2" class="header-anchor">#</a> 实现思路</h4> <details class="custom-block details"><summary>点击查看</summary> <ol><li>找出每个岗位的平均工资（按照岗位分组求平均值）</li></ol> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select
+    job,
+    avg(sal)
+from
+    emp
+group by
+    job;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><ol start="2"><li>克服心理障碍，上述查询结果看成真实存在的t表</li> <li>t表跟s表进行表连接，条件：t表avg(sal) between s.losal and s.hisal</li></ol> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select
+		t.*,s.grade
+from
+    t
+join
+    salgrade s
+on
+    t.avg(sal) between s.losal and s.hisal;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><ol start="4"><li>最终结果</li></ol> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select
+    t.*,s.grade
+from
+    (select job,avg(sal) as avgsal from emp group by job) t
+join
+    salgrade s
+on
+    t.avgsal between s.losal and s.hisal;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></details> <h2 id="select后面出现的子查询-了解"><a href="#select后面出现的子查询-了解" class="header-anchor">#</a> select后面出现的子查询(了解)</h2> <h3 id="案例-4"><a href="#案例-4" class="header-anchor">#</a> 案例</h3> <blockquote><p>找出每个员工的部门名称，要求显示员工名，部门名</p></blockquote> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select
+    e.ename,
+    e.deptno,
+    (select d.dname from dept d where e.deptno = d.deptno) as dname
+from emp e;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><div class="custom-block danger"><p class="custom-block-title">警告</p> <p>注意：对于select后面的子查询来说，<strong>这个子查询只能一次返回1条结果</strong>，
+多于1条，就报错了！</p></div> <h2 id="union合并查询结果集"><a href="#union合并查询结果集" class="header-anchor">#</a> union合并查询结果集</h2> <h3 id="案例-5"><a href="#案例-5" class="header-anchor">#</a> 案例</h3> <blockquote><p>查询工作岗位是MANAGER和SALESMAN的员工？</p></blockquote> <ol><li><p><code>union</code>的效率要高一些。对于表连接来说，每连接一次新表，则匹配的次数满足笛卡尔积，成倍的翻。。。</p></li> <li><p>但是<code>union</code>可以减少匹配的次数。在减少匹配次数的情况下， 还可以完成两个结果集的拼接。</p></li> <li><p><code>union</code>在进行结果集合并的时候，要求两个结果集的列数相同。</p></li></ol> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select ename,job from emp where job = 'manager'
+union
+select ename,job from emp where job = 'salesman';
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><h2 id="limit-非常重-要"><a href="#limit-非常重-要" class="header-anchor">#</a> limit（非常重 要）</h2> <div class="custom-block tip"><p class="custom-block-title">作用</p> <ol><li>将查询结果集的一部分取出来。通常使用在分页查询当中。</li> <li>分页的作用是为了提高用户的体验，因为一次全部都查出来，用户体验差。
+可以一页一页翻页看。</li></ol></div> <h3 id="用法"><a href="#用法" class="header-anchor">#</a> 用法</h3> <ol><li>完整用法：</li></ol> <p>limit startIndex, length
+<code>startIndex</code>是起始下标，<code>length</code>是长度。
+起始下标从0开始。</p> <ol start="2"><li>缺省用法：</li></ol> <p><code>limit</code> 5; 这是取前5.</p> <h3 id="案例-6"><a href="#案例-6" class="header-anchor">#</a> 案例</h3> <blockquote><ol><li>按照薪资降序，取出排名在前5名的员工？</li></ol></blockquote> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select
+    ename,sal
+from
+    emp
+order by
+    sal desc
+limit 5;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><div class="custom-block warning"><p class="custom-block-title">注意</p> <p><code>mysql</code>当中<code>limit</code>在<code>order by</code>之后执行！！</p></div> <blockquote><ol start="2"><li>取出工资排名在[3-5]名的员工？</li></ol></blockquote> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select 
+		ename,sal
+	from
+		emp
+	order by
+		sal desc
+	limit
+		2, 3;#2表示起始位置从下标2开始，就是第三条记录;3表示长度。
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h2 id="分页"><a href="#分页" class="header-anchor">#</a> 分页</h2> <p>记公式：</p> <div class="language-md line-numbers-mode"><pre class="language-md"><code>//每页显示pageSize条记录
+第pageNo页：limit (pageNo - 1) * pageSize  , pageSize
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><h2 id="关于dql语句的大总结"><a href="#关于dql语句的大总结" class="header-anchor">#</a> 关于DQL语句的大总结</h2> <details class="custom-block details"><summary>点击查看</summary> <div class="language-mysql line-numbers-mode"><pre class="language-text"><code>select 
+	...
+from
+	...
+where
+	...
+group by
+	...
+having
+	...
+order by
+	...
+limit
+	...
+
+#执行顺序？
+	1.from
+	2.where
+	3.group by
+	4.having
+	5.select
+	6.order by
+	7.limit..
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br></div></div></details></div></div>  <div class="page-edit"><div class="edit-link"><a href="https://github.com/xugaoyi/vuepress-theme-vdoing/edit/master/docs/《MySql》学习笔记/01.基础篇/01.MySql基础知识（中）.md" target="_blank" rel="noopener noreferrer">编辑</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="tags"><a href="/xiaoshixy/tags/?tag=MySql" title="标签">#MySql</a></div> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">2022/07/08, 15:02:23</span></div></div> <div class="page-nav-wapper"><div class="page-nav-centre-wrap"><a href="/xiaoshixy/pages/ae60b8/" class="page-nav-centre page-nav-centre-prev"><div class="tooltip">MySql之单表查询</div></a> <a href="/xiaoshixy/pages/a35793/" class="page-nav-centre page-nav-centre-next"><div class="tooltip">MySql之增删改查</div></a></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/xiaoshixy/pages/ae60b8/" class="prev">MySql之单表查询</a></span> <span class="next"><a href="/xiaoshixy/pages/a35793/">MySql之增删改查</a>→
+      </span></p></div></div></div> <div class="article-list"><div class="article-title"><a href="/xiaoshixy/archives/" class="iconfont icon-bi">最近更新</a></div> <div class="article-wrapper"><dl><dd>01</dd> <dt><a href="/xiaoshixy/pages/py2/"><div>
+            python入门知识
+            <!----></div></a> <span class="date">10-09</span></dt></dl><dl><dd>02</dd> <dt><a href="/xiaoshixy/pages/kemu3/"><div>
+            科目三
+            <!----></div></a> <span class="date">09-08</span></dt></dl><dl><dd>03</dd> <dt><a href="/xiaoshixy/pages/f779fb/"><div>
+            linux入门
+            <!----></div></a> <span class="date">08-15</span></dt></dl> <dl><dd></dd> <dt><a href="/xiaoshixy/archives/" class="more">更多文章&gt;</a></dt></dl></div></div></main></div> <div class="footer"><div class="icons"><a href="mailto:627910316@qq.com" title="发邮件" target="_blank" class="iconfont icon-youjian"></a><a href="https://github.com/xiayuan-001" title="GitHub" target="_blank" class="iconfont icon-github"></a><a href="https://space.bilibili.com/4973175" title="bilibili" target="_blank" class="iconfont icon-bilibili"></a><a href="https://music.163.com/#/playlist?id=273116211" title="听音乐" target="_blank" class="iconfont icon-erji"></a></div> 
+  Theme by
+  <a href="https://github.com/xugaoyi/vuepress-theme-vdoing" target="_blank" title="本站主题">Vdoing</a> 
+    | Copyright © 2022-2022
+    <span>Xiao shi | <a href="https://github.com/xugaoyi/vuepress-theme-vdoing/blob/master/LICENSE" target="_blank">MIT License</a></span></div> <div class="buttons"><div title="返回顶部" class="button blur go-to-top iconfont icon-fanhuidingbu" style="display:none;"></div> <div title="去评论" class="button blur go-to-comment iconfont icon-pinglun" style="display:none;"></div> <div title="主题模式" class="button blur theme-mode-but iconfont icon-zhuti"><ul class="select-box" style="display:none;"><li class="iconfont icon-zidong">
+          跟随系统
+        </li><li class="iconfont icon-rijianmoshi">
+          浅色模式
+        </li><li class="iconfont icon-yejianmoshi">
+          深色模式
+        </li><li class="iconfont icon-yuedu">
+          阅读模式
+        </li></ul></div></div> <div class="body-bg" style="background:url() center center / cover no-repeat;opacity:0.5;"></div> <!----> <!----></div><div class="global-ui"><!----><div></div><div></div></div></div>
+    <script src="/xiaoshixy/assets/js/app.929aa955.js" defer></script><script src="/xiaoshixy/assets/js/2.bc0d13a8.js" defer></script><script src="/xiaoshixy/assets/js/48.a0d98520.js" defer></script><script src="/xiaoshixy/assets/js/5.20225ec1.js" defer></script>
+  </body>
+</html>
